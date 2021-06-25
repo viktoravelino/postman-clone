@@ -1,7 +1,7 @@
 {
   "name": "postman-clone",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "/src/index.js",
   "repository": "https://github.com/viktoravelino/postman-clone.git",
   "author": "Viktor Avelino",
   "license": "MIT",
