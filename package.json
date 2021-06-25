@@ -1,0 +1,20 @@
+{
+  "name": "postman-clone",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/viktoravelino/postman-clone.git",
+  "author": "Viktor Avelino",
+  "license": "MIT",
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.9.2",
+    "axios": "^0.21.1",
+    "bootstrap": "^5.0.2"
+  },
+  "devDependencies": {
+    "snowpack": "^3.6.2"
+  }
+}
