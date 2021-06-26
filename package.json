@@ -10,9 +10,14 @@
     "build": "snowpack build"
   },
   "dependencies": {
+    "@codemirror/basic-setup": "^0.18.2",
+    "@codemirror/commands": "^0.18.3",
+    "@codemirror/lang-json": "^0.18.0",
+    "@codemirror/view": "^0.18.17",
     "@popperjs/core": "^2.9.2",
     "axios": "^0.21.1",
-    "bootstrap": "^5.0.2"
+    "bootstrap": "^5.0.2",
+    "pretty-bytes": "^5.6.0"
   },
   "devDependencies": {
     "snowpack": "^3.6.2"

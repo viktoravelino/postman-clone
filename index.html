@@ -9,6 +9,7 @@
   </head>
   <body>
     <div class="p-4">
+      <!-- Request section -->
       <form data-form>
         <div class="input-group mb-4">
           <select class="form-select flex-grow-0 w-auto" data-method>
@@ -21,8 +22,7 @@
           <input data-url required type="url" class="form-control" placeholder="https://example.com" />
           <button type="submit" class="btn btn-primary">Send</button>
         </div>
-
-        <!-- Form tabs -->
+        <!-- Request Form tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item" role="presentation">
             <button
@@ -67,7 +67,7 @@
             </button>
           </li>
         </ul>
-        <!-- Tab contents -->
+        <!-- Request Tab contents -->
         <div class="tab-content p-3 border-top-0 border">
           <div class="tab-pane fade show active" id="query-params" role="tabpanel" aria-labelledby="query-params-tab">
             <div data-query-params></div>
@@ -82,6 +82,67 @@
           </div>
         </div>
       </form>
+
+      <!-- Response section -->
+      <div class="mt-5 d-none" data-response-section>
+        <h3>Response</h3>
+        <div class="d-flex my-2">
+          <div class="me-3">
+            Status:
+            <span data-status></span>
+          </div>
+          <div class="me-3">
+            Time:
+            <span data-time></span>
+            ms
+          </div>
+          <div class="me-3">
+            Size:
+            <span data-size></span>
+          </div>
+        </div>
+        <!-- Response Form tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="body-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#body"
+              type="button"
+              role="tab"
+              aria-controls="body"
+              aria-selected="true"
+            >
+              Body
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="response-headers-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#response-headers"
+              type="button"
+              role="tab"
+              aria-controls="response-headers"
+              aria-selected="false"
+            >
+              Headers
+            </button>
+          </li>
+        </ul>
+        <!-- Response Tab contents -->
+        <div class="tab-content p-3 border-top-0 border">
+          <div class="tab-pane fade show active" id="body" role="tabpanel" aria-labelledby="body-tab">
+            <div data-json-response-body class="overflow-auto" style="max-height: 200px"></div>
+          </div>
+
+          <div class="tab-pane fade" id="response-headers" role="tabpanel" aria-labelledby="response-headers-tab">
+            <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 2rem" data-response-headers></div>
+          </div>
+        </div>
+      </div>
     </div>
     <template data-key-value-template>
       <div class="input-group my-2" data-key-value-pair>

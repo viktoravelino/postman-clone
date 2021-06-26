@@ -1,6 +1,10 @@
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import prettyBytes from "pretty-bytes";
+import setupEditors from "./setupEditor";
+
+const { updateResponseEditor, requestEditor } = setupEditors();
 
 //--------
 //Request section
@@ -27,15 +31,26 @@ document.querySelector("[data-add-request-header-btn]").addEventListener("click"
 //Add an event listener to the form to run when submitting
 document.querySelector("[data-form]").addEventListener("submit", (e) => {
   e.preventDefault();
+  //Get the data from the json body
+  let data;
+  try {
+    data = JSON.parse(requestEditor.state.doc.toString() || null);
+  } catch (e) {
+    alert("Json data is malformed!");
+  }
+
   //Make the http request via axios
   axios({
     url: document.querySelector("[data-url]").value,
     method: document.querySelector("[data-method]").value,
     headers: keyValuePairsToObjects(requestHeadersContainer),
     params: keyValuePairsToObjects(queryParamsContainer),
-  }).then((response) => {
-    console.log(response);
-  });
+    data,
+  })
+    .catch((e) => e)
+    .then((response) => {
+      showResponse(response);
+    });
 });
 
 //Function to create an element from the key value template and return it
@@ -68,3 +83,47 @@ function keyValuePairsToObjects(container) {
 //--------
 //Response section
 //--------
+const responseHeadersContainer = document.querySelector("[data-response-headers]");
+
+axios.interceptors.request.use((request) => {
+  request.customData = request.customData || {};
+  request.customData.startTime = new Date().getTime();
+  return request;
+});
+
+axios.interceptors.response.use(updateEndTime, (e) => {
+  return Promise.reject(updateEndTime(e.response));
+});
+
+function showResponse(response) {
+  document.querySelector("[data-response-section]").classList.remove("d-none");
+  updateResponseDetails(response);
+  updateResponseEditor(response.data);
+  updateResponseHeaders(response.headers);
+}
+
+function updateEndTime(response) {
+  response.customData = response.customData || {};
+  response.customData.time = new Date().getTime() - response.config.customData.startTime;
+  return response;
+}
+
+function updateResponseDetails(response) {
+  document.querySelector("[data-status]").textContent = response.status;
+  document.querySelector("[data-time]").textContent = response.customData.time;
+  document.querySelector("[data-size]").textContent = prettyBytes(
+    JSON.stringify(response.data).length + JSON.stringify(response.headers).length
+  );
+}
+
+function updateResponseHeaders(headers) {
+  responseHeadersContainer.innerHTML = "";
+  Object.entries(headers).forEach(([key, value]) => {
+    const keyElement = document.createElement("div");
+    keyElement.textContent = key;
+    responseHeadersContainer.append(keyElement);
+    const valueElement = document.createElement("div");
+    valueElement.textContent = value;
+    responseHeadersContainer.append(valueElement);
+  });
+}
