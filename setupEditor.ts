@@ -4,10 +4,10 @@ import { EditorView, keymap } from "@codemirror/view";
 import { json } from "@codemirror/lang-json";
 
 export default function setupEditors() {
-  const jsonRequestBody = document.querySelector("[data-json-request-body]");
-  const jsonResponseBody = document.querySelector("[data-json-response-body]");
+  const jsonRequestBody: HTMLElement = document.querySelector("[data-json-request-body]");
+  const jsonResponseBody: HTMLElement = document.querySelector("[data-json-response-body]");
 
-  const basicExtensions = [basicSetup, keymap.of(defaultTabBinding), json(), EditorState.tabSize.of(2)];
+  const basicExtensions = [basicSetup, keymap.of([defaultTabBinding]), json(), EditorState.tabSize.of(2)];
 
   const requestEditor = new EditorView({
     state: EditorState.create({
@@ -25,7 +25,7 @@ export default function setupEditors() {
     parent: jsonResponseBody,
   });
 
-  function updateResponseEditor(value) {
+  function updateResponseEditor(value: JSON) {
     responseEditor.dispatch({
       changes: {
         from: 0,
