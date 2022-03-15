@@ -1457,4 +1457,8 @@ axios_1.default = _default;
 
 var axios$1 = axios_1;
 
+var AxiosRequestConfig = axios$1.AxiosRequestConfig;
+var AxiosResponse = axios$1.AxiosResponse;
+var Method = axios$1.Method;
 export default axios$1;
+export { AxiosRequestConfig, AxiosResponse, Method };
