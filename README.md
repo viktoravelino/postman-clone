@@ -1,4 +1,4 @@
-![Test Image 1](ScreenShot.png)
+![Test Image 1](https://raw.githubusercontent.com/viktoravelino/postman-clone/main/src/ScreenShot.png)
 
 ## ✨ Technologies
 
